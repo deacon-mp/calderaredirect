@@ -25,10 +25,9 @@
   <meta property="og:url" content="https://caldera.apache.org/">
   <meta name="twitter:card" content="summary">
 
-  <!-- Optional: re-enable an automatic redirect (release says MITRE-hosted resources
-       will redirect users). Uncomment to send visitors on after ~20s of reading time.
-  <meta http-equiv="refresh" content="20; url=https://caldera.apache.org/">
-  -->
+  <!-- Auto-redirect to the new home. The number is the delay in seconds (0 = instant).
+       Uses meta-refresh, which works under our CSP (no inline <script> needed). -->
+  <meta http-equiv="refresh" content="0; url=https://caldera.apache.org/">
 
   <style>
     :root{
