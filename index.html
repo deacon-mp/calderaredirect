@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MITRE Contributes Caldera to Apache Incubator to Expand Open Cybersecurity</title>
 
+  <!-- Security hardening. GitHub Pages can't set HTTP response headers, so we apply
+       what browsers honor via <meta>. No scripts/objects/frames are allowed at all
+       (default-src 'none'); only the self-hosted logo and inline page styles load. -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+
   <!-- SEO: keep this stub out of the index, consolidate to the new home -->
   <link rel="canonical" href="https://caldera.apache.org/">
   <meta name="robots" content="noindex, follow">
