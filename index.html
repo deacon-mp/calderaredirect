@@ -6,10 +6,11 @@
   <title>MITRE Contributes Caldera to Apache Incubator to Expand Open Cybersecurity</title>
 
   <!-- Security hardening. GitHub Pages can't set HTTP response headers, so we apply
-       what browsers honor via <meta>. No scripts/objects/frames are allowed at all
-       (default-src 'none'); only the self-hosted logo and inline page styles load. -->
+       what browsers honor via <meta>. default-src 'none' blocks everything by default;
+       we allow only the self-hosted logo (img), inline page styles, and our own
+       same-origin redirect.js (script-src 'self' — no unsafe-inline). -->
   <meta http-equiv="Content-Security-Policy"
-        content="default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+        content="default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; script-src 'self'; base-uri 'none'; form-action 'none'">
   <meta name="referrer" content="no-referrer">
 
   <!-- SEO: keep this stub out of the index, consolidate to the new home -->
@@ -25,9 +26,9 @@
   <meta property="og:url" content="https://caldera.apache.org/">
   <meta name="twitter:card" content="summary">
 
-  <!-- Auto-redirect to the new home. The number is the delay in seconds (0 = instant).
-       Uses meta-refresh, which works under our CSP (no inline <script> needed). -->
-  <meta http-equiv="refresh" content="0; url=https://caldera.apache.org/">
+  <!-- No-JS fallback: redirect after 20s via meta-refresh. With JS enabled, redirect.js
+       shows a live countdown and performs the redirect itself. Keep both delays in sync. -->
+  <meta http-equiv="refresh" content="20; url=https://caldera.apache.org/">
 
   <style>
     :root{
@@ -63,6 +64,8 @@
       transition:background .15s ease,transform .15s ease;
     }
     .cta:hover{background:var(--accent-hover);transform:translateY(-1px)}
+    .countdown{margin:1.1rem 0 0;font-size:.9rem;color:var(--muted)}
+    .countdown .num{color:var(--bright);font-weight:600;font-variant-numeric:tabular-nums}
     .article{line-height:1.7}
     .dateline{color:var(--muted);font-size:.9rem;margin:0 0 1.5rem}
     p{margin:0 0 1.15rem}
@@ -84,6 +87,10 @@
       <p class="eyebrow">Apache Caldera (Incubating)</p>
       <h1>MITRE Contributes Caldera to Apache Incubator to Expand Open Cybersecurity</h1>
       <a class="cta" href="https://caldera.apache.org/">Go to caldera.apache.org &rarr;</a>
+      <p class="countdown" role="status" aria-live="polite">
+        Redirecting automatically in <span class="num" id="count">20</span> seconds&hellip;
+        or use the button above.
+      </p>
     </header>
 
     <article class="article">
@@ -115,5 +122,6 @@
          <a href="https://www.mitre.org/news-insights/news-release/mitre-contributes-caldera-apache-incubator-expand-open-cybersecurity">mitre.org</a>.</p>
     </footer>
   </main>
+  <script src="redirect.js"></script>
 </body>
 </html>
