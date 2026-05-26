@@ -7,11 +7,24 @@
 
   <!-- Security hardening. GitHub Pages can't set HTTP response headers, so we apply
        what browsers honor via <meta>. default-src 'none' blocks everything by default;
-       we allow only the self-hosted logo (img), inline page styles, and our own
-       same-origin redirect.js (script-src 'self' — no unsafe-inline). -->
+       we allow the self-hosted logo, inline page styles, our own redirect.js, and
+       Google Analytics (gtag.js) for visitor measurement before the redirect fires. -->
   <meta http-equiv="Content-Security-Policy"
-        content="default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; script-src 'self'; base-uri 'none'; form-action 'none'">
+        content="default-src 'none'; img-src 'self' https://www.google-analytics.com https://www.googletagmanager.com; style-src 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; connect-src https://www.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; base-uri 'none'; form-action 'none'">
   <meta name="referrer" content="no-referrer">
+
+  <!-- Google tag (gtag.js) — fires pageview before the 20s meta-refresh.
+       Hostname guard prevents the snippet from sending data if the page is cloned
+       to another domain; pair with a hostname allowlist filter in GA for defense in depth. -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZDPZDB8Y8E"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    if (window.location.hostname === 'caldera.mitre.org') {
+      gtag('config', 'G-ZDPZDB8Y8E');
+    }
+  </script>
 
   <!-- SEO: keep this stub out of the index, consolidate to the new home -->
   <link rel="canonical" href="https://caldera.apache.org/">
